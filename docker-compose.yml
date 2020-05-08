@@ -1,0 +1,22 @@
+
+version: '2'
+services:
+  base_wmx:
+    build:
+      context: .
+      dockerfile: Dockerfile-base
+    image: base-wmx:latest
+    container_name: base-wmx
+  hive:
+    build:
+      context: .
+      dockerfile: Dockerfile-hive
+    image: hive-wmx:2.0.1
+    container_name: hive-wmx
+    ports:
+     - "10000:10000"
+    volumes:
+     - $PWD/conf/hive-site.xml:/opt/hive/conf/hive-site.xml
+     - $PWD/scripts/init.sh:/opt/scripts/init.sh
+     - $PWD/data/hive/warehouse:/data/hive/warehouse
+     - $PWD/shared_data:/data/shared_data

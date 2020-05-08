@@ -1,0 +1,10 @@
+FROM alpine:latest
+
+RUN apk --no-cache --update upgrade && apk --no-cache add ca-certificates
+
+RUN apk add --no-cache curl bash openjdk8-jre python3 py-pip nss libc6-compat \
+      && ln -s /lib64/ld-linux-x86-64.so.2 /lib/ld-linux-x86-64.so.2
+
+ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
+
+EXPOSE 22
