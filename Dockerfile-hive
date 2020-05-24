@@ -43,8 +43,19 @@ RUN ln -s /opt/apache-hive-$HIVE_VERSION-bin $HIVE_HOME
 RUN chown -R root:root $HIVE_HOME \
   && mkdir -p $HIVE_HOME/hcatalog/var/log \
   && mkdir -p $HIVE_HOME/var/log \
+  && mkdir -p $HIVE_HOME/lib \
   && mkdir -p /data/hive/ \
-  && mkdir -p /data/shared_data/ \
+  && mkdir -p /data/shared \
   && mkdir -p $HIVE_CONF_DIR \
   && chmod 777 $HIVE_HOME/hcatalog/var/log \
-  && chmod 777 $HIVE_HOME/var/log
+  && chmod 777 $HIVE_HOME/var/log \
+  && chmod 777 $HIVE_HOME/lib
+
+
+
+# -- install MySQL client jar for Hive
+
+  RUN wget https://downloads.mysql.com/archives/get/p/3/file/mysql-connector-java-5.1.45.tar.gz
+  RUN tar xf mysql-connector-java-5.1.45.tar.gz
+  RUN mv mysql-connector-java-5.1.45/mysql-connector-java-5.1.45-bin.jar $HIVE_HOME/lib
+  RUN rm -rf mysql-connector-java-5.1.45
