@@ -46,9 +46,11 @@ services:
      - "18080:8080"
     volumes:
      - $PWD/conf/hive-site.xml:/opt/spark/conf/hive-site.xml
+     - $PWD/conf/spark/spark-defaults.conf:/opt/spark/conf/spark-defaults.conf
      - $PWD/conf/spark/log4j.properties:/opt/spark/conf/log4j.properties
-     - $PWD/data/spark/warehouse:/data/shared/hive/warehouse
+     - $PWD/data/spark/warehouse:/data/shared/spark/warehouse
      - $PWD/data/table_data:/data/shared/table_data
+     - $PWD/data/jars:/data/shared/jars
     links:
       - "mysql:mysql"
     command: tail -F anything
